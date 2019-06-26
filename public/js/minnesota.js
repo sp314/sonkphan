@@ -1,6 +1,6 @@
 mn_config = {
-  "density": 1.5,
-  "scale": 3,
+  "density": 1.4,
+  "scale": 3.1,
   "careful": true,
   "smooth": true,
   "cutoff_area": 10
@@ -8,7 +8,7 @@ mn_config = {
 
 mn_projection = d3.geo.mercator()
   .scale(1150)
-  .translate([1950, 1140]);
+  .translate([1960, 1140]);
 
 mn_path = d3.geo.path()
   .projection(mn_projection);
