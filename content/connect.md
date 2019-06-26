@@ -1,5 +1,0 @@
----
-title: "CONNECT"
-draft: true
----
-

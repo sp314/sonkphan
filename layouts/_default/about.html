@@ -1,9 +1,13 @@
 {{ define "content" }}
-<div class="container">
-  <img src="/avatar.jpeg" class="img-fluid rounded float-left">
+<div class="container" style="max-width: 55rem;">
   <div class="row">
-    <div class="about-me col align-self-end">
+    <div class="col-sm-4">
+      <img src="/avatar.jpeg" class="img-fluid rounded">
+    </div>
+    <div class="col-sm-8">
+      <div class="about-me align-self-end">
         {{ .Content }}
+      </div>
     </div>
   </div>
 </div>
