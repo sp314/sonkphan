@@ -1,0 +1,12 @@
+languageCode = "en-us"
+title = "Site"
+theme = "basics"
+
+[params]
+    author = "Son Phan"
+
+[blackfriday]
+    hrefTargetBlank = true  # `true` opens external links in a new tab. See https://github.com/gohugoio/hugo/issues/2424
+    angledQuotes = false
+    latexDashes = true
+    extensions = ["backslashLineBreak"]
