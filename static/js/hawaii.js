@@ -1,6 +1,6 @@
 hi_config = {
-  "density": 7,
-  "scale": 2.3,
+  "density": 6,
+  "scale": 2.2,
   "careful": true,
   "smooth": true,
   "cutoff_area": 0

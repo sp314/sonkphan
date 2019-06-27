@@ -1,5 +1,5 @@
 mn_config = {
-  "density": 1.4,
+  "density": 1.3,
   "scale": 3.1,
   "careful": true,
   "smooth": true,
