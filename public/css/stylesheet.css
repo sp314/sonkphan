@@ -21,11 +21,11 @@ body {
 }
 
 .post .fa {
-  transition: .4s transform ease-in-out;
+  transition: 1s transform ease-in-out;
 }
 
 .post .collapsed .fa {
-  transform: rotate(-90deg);
+  transform: rotate(-540deg);
 }
 
 .post a {
@@ -117,4 +117,12 @@ pre {
 
 .about-me {
   text-align: justify;
+}
+
+.card {
+  max-width: 38rem;
+}
+.card p {
+  padding-left: 15px;
+  padding-top: 10px;
 }
