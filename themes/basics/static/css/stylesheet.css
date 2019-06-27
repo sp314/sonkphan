@@ -2,26 +2,41 @@ html {
   width: auto;
   height: auto;
 }
+
 body {
-    font-family: 'Ubuntu', sans-serif;
-    margin: auto;
-    max-width: 80rem;
-    background-color: rgb(251, 251, 255);
+  font-family: 'Ubuntu', sans-serif;
+  margin: auto;
+  max-width: 80rem;
+  background-color: rgb(251, 251, 255);
 }
 
 
 #page-title {
-    text-align: center;
+  text-align: center;
 }
 
 #page-title h1 a {
-    color: black;
-    font-size: 2.7rem;
+  color: black;
+  font-size: 2.7rem;
+}
+
+.post .fa {
+  transition: 1s transform ease-in-out;
+}
+
+.post .collapsed .fa {
+  transform: rotate(-540deg);
 }
 
 .post a {
-    color: black;
-    font-size: 1.2rem;
+  color: black;
+  font-size: 1.2rem;
+}
+
+.post .btn-link {
+  color: black;
+  font-size: 1.2rem;
+  text-decoration: none;
 }
 
 #author-name h6 a {
@@ -30,13 +45,14 @@ body {
   font-size: small;
 }
 
-#page-title a:hover, .post a:hover {
-    text-decoration: underline;
+#page-title a:hover,
+.post a:hover {
+  text-decoration: underline;
 }
 
 .date-time-title {
-    font-family: 'Ubuntu Mono', monospace;
-    font-size: 1.2rem;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 1.2rem;
 }
 
 .blog-post {
@@ -68,15 +84,15 @@ h3 {
   font-size: 1.4rem;
 }
 
-h4  {
+h4 {
   font-size: 1.2rem;
 }
 
-h5  {
+h5 {
   font-size: 1rem;
 }
 
-h6  {
+h6 {
   font-size: 0.8rem;
 }
 
@@ -103,6 +119,10 @@ pre {
   text-align: justify;
 }
 
-ul {
-  font-size: 0.9rem;
+.card {
+  max-width: 38rem;
+}
+.card p {
+  padding-left: 15px;
+  padding-top: 10px;
 }

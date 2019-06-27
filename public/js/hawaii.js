@@ -1,14 +1,14 @@
 hi_config = {
-  "density": 6,
-  "scale": 2.1,
+  "density": 7,
+  "scale": 2.3,
   "careful": true,
   "smooth": true,
   "cutoff_area": 0
 };
 
 hi_projection = d3.geo.mercator()
-  .scale(1700)
-  .translate([4780, 710]);;
+  .scale(1890)
+  .translate([5300, 785]);;
 
 hi_path = d3.geo.path()
   .projection(hi_projection);
