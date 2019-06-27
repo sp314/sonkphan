@@ -6,7 +6,7 @@ html {
 body {
   font-family: 'Ubuntu', sans-serif;
   margin: auto;
-  max-width: 80rem;
+  max-width: 70rem;
   background-color: rgb(251, 251, 255);
 }
 
@@ -125,4 +125,8 @@ pre {
 .card p {
   padding-left: 15px;
   padding-top: 10px;
+}
+
+.avatar {
+  padding-top: 45px;
 }

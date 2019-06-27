@@ -37,7 +37,7 @@ function drawLine(svg, line) {
         stroke: line.stroke
       });
     }
-  }, 1000)
+  })
 }
 
 function getDrawing(pieces, path, projection, config){

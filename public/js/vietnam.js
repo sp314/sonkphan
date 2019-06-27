@@ -1,5 +1,5 @@
 vn_config = {
-  "density": 2.2,
+  "density": 2,
   "scale": 2.7,
   "careful": true,
   "smooth": true,
@@ -7,8 +7,8 @@ vn_config = {
 };
 
 vn_projection = d3.geo.mercator()
-  .scale(690)
-  .translate([-1125, 290]);
+  .scale(670)
+  .translate([-1100, 290]);
 
 vn_path = d3.geo.path()
   .projection(vn_projection);

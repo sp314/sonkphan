@@ -1,14 +1,14 @@
 hi_config = {
-  "density": 6,
-  "scale": 2.2,
+  "density": 4,
+  "scale": 2,
   "careful": true,
   "smooth": true,
   "cutoff_area": 0
 };
 
 hi_projection = d3.geo.mercator()
-  .scale(1890)
-  .translate([5300, 785]);;
+  .scale(1880)
+  .translate([5270, 785]);;
 
 hi_path = d3.geo.path()
   .projection(hi_projection);
@@ -23,6 +23,6 @@ hi_svg = d3.select("#hawaii")
 d3.json('data/hawaii.json', function (error, json) {
   hi_json = json
   islands = topojson.feature(hi_json, hi_json.objects.islands).features,
-    hi_drawing = getDrawing(islands, hi_path, hi_projection, hi_config)
+  hi_drawing = getDrawing(islands, hi_path, hi_projection, hi_config)
   draw(hi_drawing, hi_svg)
 })
