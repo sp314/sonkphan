@@ -1,7 +1,7 @@
-{{ define "content" }}
+{{define "content"}}
 <section>
   <ul class="posts_listing">
-    {{ range $index, $element := .Sections.ByDate.Reverse }}
+    {{ range $index, $element := .Pages.ByDate.Reverse }}
     <li>
       {{$post_project := printf "project-preview_%d" $index}}
 
@@ -10,10 +10,10 @@
           <time>{{ .Date.Format "02 Jan 2006" }}</time>
         </div>
         <div class="col-sm-9 date-time-title post">
-          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#{{$post_project}}" aria-expanded="false"
-            aria-controls="{{$post_project}}">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#{{$post_project}}"
+            aria-expanded="false" aria-controls="{{$post_project}}">
             <h3>
-              <i class="collapse-icon fa fa-hourglass-end pull-left"></i> 
+              <i class="collapse-icon fa fa-hourglass-end pull-left"></i>
               &nbsp {{.Title}}
             </h3>
           </button>
@@ -33,4 +33,4 @@
     {{ end }}
   </ul>
 </section>
-{{ end }}
+{{end}}

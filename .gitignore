@@ -1,3 +1,5 @@
 .DS_Store
 .Rproj.user
-sonkphan.Rproj
+*.Rproj
+.RData
+.Rhistory

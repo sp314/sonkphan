@@ -32,7 +32,7 @@
         <div class="navbar-nav">
           <a class="nav-item nav-link {{ if eq .RelPermalink "/"}}active{{ end }}" href="/">/</a>
           <a class="nav-item nav-link {{ if eq .RelPermalink "/about/"}}active{{ end }}" href="/about/">About</a>
-          <a class="nav-item nav-link {{ if eq .RelPermalink "/project/"}}active{{ end }}" href="/project/">Projects</a>
+          <a class="nav-item nav-link {{ if hasPrefix .RelPermalink "/project/"}}active{{ end }}" href="/project/">Projects</a>
           <a class="nav-item nav-link {{ if eq .RelPermalink "/connect/"}}active{{ end }}" href="/connect/">Connect</a>
         </div>
       </div>

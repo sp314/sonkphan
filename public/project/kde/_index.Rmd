@@ -1,5 +1,5 @@
 ---
-title: A Tutorial on Non-Parametric Kernel Density Estimation
+title: A Tutorial on Kernel Density Estimation
 author: ["Son Phan", "Zhen Tan"]
 date: '2019-04-19'
 categories: ["R"]

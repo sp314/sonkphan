@@ -11,15 +11,13 @@ bibliography: kde.bib
 ---
 
 
-
-<script src="~/Desktop/Project/sonphan-site/assets/js/custom.js"></script>
 <style> p {line-height: 2em;} </style>
 <div class="figure">
-<img src="/post/kde/3dKDE.png" />
+<img src="/img/3dKDE.png" style="size: 100%;"/>
 
 </div>
 <div id="introduction" class="section level2">
-<h2>1. Introduction</h2>
+<h1>1. Introduction</h1>
 <p>Nonparametric statistics is a field that has been rapidly developing over the last decade. Its development has been aided by the various benefits it has relative to classical statistical techniques:</p>
 <ul>
 <li>We can relax assumptions on the probability distribution of the data. Most notably, the normality.</li>
@@ -29,11 +27,11 @@ bibliography: kde.bib
 <p>So far, when approaching statistics problems, we’ve assumed the distribution of data. However, we rarely ever understand the data enough to confidently assume a distribution. We will cover Kernel Density Estimation (KDE), a non-parametric estimation technique for any distribution <strong>f(x)</strong>. We will start with an explanation and mathematical form of a kernel density estimator, go over its properties, and touch on the burgeoning field of <em>bandwidth selection</em>.</p>
 </div>
 <div id="history" class="section level2">
-<h2>2. History</h2>
+<h1>2. History</h1>
 <p>The concept of KDE was created by <span class="citation">Parzen (1962)</span> and <span class="citation">Rosenblatt (1956)</span> in their independent works, so it is also called Parzen-Rosenblatt window method in other fields such as signal processing and econometrics.</p>
 </div>
 <div id="some-intuition" class="section level2">
-<h2>3. Some Intuition</h2>
+<h1>3. Some Intuition</h1>
 <div id="the-histogram" class="section level3">
 <h3>The Histogram</h3>
 <p>Non-parametric density estimation may sound very alien but in fact it’s so commonplace that we’ve already seen it countless times! In high school, and even earlier, we’ve come across the <span class="math inline">\(\textbf{histogram}\)</span>. Turns out, they are non-parametric density estimators.</p>
@@ -79,7 +77,7 @@ ggplot(mapping = aes(x = binom_data)) +
 </div>
 </div>
 <div id="theory-and-properties" class="section level2">
-<h2>4. Theory and Properties</h2>
+<h1>4. Theory and Properties</h1>
 <p>To allow for our analysis of KDE properties, we will outline a few rules about the Kernel and underlying density function.</p>
 <ol style="list-style-type: decimal">
 <li>Kernel function <span class="math inline">\(K\)</span>: is symmetric about 0, <span class="math inline">\(\int_{\Omega_X} K dx = 1\)</span>, and <span class="math inline">\(\lim_{x\to-\infty} K(x)= \lim_{x\to\infty} K(x) = 0\)</span></li>
@@ -169,8 +167,8 @@ ggplot(mapping = aes(x = binom_data)) +
 </div>
 </div>
 <div id="choosing-bandwidth" class="section level2">
-<h2>5. Choosing Bandwidth</h2>
-<iframe width="1300" height="600" scrolling="no" frameborder="no" src="https://sonphan.shinyapps.io/bandwidth/">
+<h1>5. Choosing Bandwidth</h1>
+<iframe width="1000" height="600" scrolling="no" frameborder="no" src="https://sonphan.shinyapps.io/bandwidth/">
 </iframe>
 <p>Bandwidth is similar to bin width in histograms. Bandwidth determines how smooth the KDE curves can be. If the chosen bandwidth is very small, the curve will be high variance; this case is called undersmoothing. If the chosen bandwidth is too large, however, the curve will have high bias and we are oversmoothing the curve.</p>
 <p>Because an appropriate size of bandwidth yields optimal results of estimation, bandwidth selection is a very important topic. If we choose a correct bandwidth, we will be able to estimate the underlying distribution, which neither wiggles too much (with a very small bandwidth) nor loses its characteristics (with a very large bandwidth).</p>
@@ -182,7 +180,7 @@ ggplot(mapping = aes(x = binom_data)) +
 <p>In the end, you should find <span class="math inline">\(h_{opt}\)</span> is dependent on the overall curvature of the underlying distribution <span class="math inline">\(\int \left[f&#39;&#39;(x)\right]^2 dx\)</span>. Despite the age of the KDE concept, many of the advances in KDE are within the last decade in the field of bandwidth selection. If you find a good way to estimate <span class="math inline">\(\textbf{AMISE}\)</span> or the overall curvature, <span class="math inline">\(\int \left[f&#39;&#39;(x)\right]^2 dx\)</span>, prepare to get published. See <span class="citation">Wang and Zambom (2019)</span> and <span class="citation">Goldenshluger, Lepski, and others (2011)</span>.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
-<h2>References</h2>
+<h1>References</h1>
 <div id="refs" class="references">
 <div id="ref-goldenshluger2011bandwidth">
 <p>Goldenshluger, Alexander, Oleg Lepski, and others. 2011. “Bandwidth Selection in Kernel Density Estimation: Oracle Inequalities and Adaptive Minimax Optimality.” <em>The Annals of Statistics</em> 39 (3). Institute of Mathematical Statistics: 1608–32.</p>

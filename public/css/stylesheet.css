@@ -21,21 +21,20 @@ body {
 }
 
 .post .fa {
-  transition: 1s transform ease-in-out;
+  transition: 0.8s transform ease-in-out;
 }
 
 .post .collapsed .fa {
   transform: rotate(-540deg);
 }
 
-.post a {
-  color: black;
-  font-size: 1.2rem;
-}
-
 .post .btn-link {
   color: black;
   font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.description .btn:hover {
   text-decoration: none;
 }
 
@@ -120,11 +119,10 @@ pre {
 }
 
 .card {
-  max-width: 38rem;
+  max-width: 35rem;
 }
-.card p {
-  padding-left: 15px;
-  padding-top: 10px;
+.card .description {
+  padding: 10px 0px 25px 20px;
 }
 
 .avatar {

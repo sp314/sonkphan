@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/project/transit-bayes/</loc>
+    <lastmod>2019-04-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/connect/</loc>
     <lastmod>2019-06-26T17:39:59-05:00</lastmod>
   </url>
@@ -56,11 +61,6 @@
     <loc>/tags/transit/</loc>
     <lastmod>2019-04-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/project/transit-bayes/</loc>
-    <lastmod>2019-04-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>

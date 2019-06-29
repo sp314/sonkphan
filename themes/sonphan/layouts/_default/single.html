@@ -1,7 +1,6 @@
-{{ define "content" }}
-<div class="blog-post">
-  <div class="blog-post-content">
-    {{ .Content }}
-  </div>
+{{define "content"}}
+<script src="/js/code_folding.js"></script>
+<div class="container fluid">
+  {{.Content}}
 </div>
-{{ end }}
+{{end}}
