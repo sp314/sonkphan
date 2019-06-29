@@ -1,6 +1,7 @@
 languageCode = "en-us"
 title = "Site"
-theme = "basics"
+theme = "sonphan"
+enableEmoji = "true"
 
 [params]
     author = "Son Phan"

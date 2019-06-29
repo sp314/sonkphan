@@ -1,0 +1,36 @@
+{{ define "content" }}
+<section>
+  <ul class="posts_listing">
+    {{ range $index, $element := .Sections.ByDate.Reverse }}
+    <li>
+      {{$post_project := printf "project-preview_%d" $index}}
+
+      <div class="row" id="posts" style="margin: 10px 10px 25px 0px">
+        <div class="d-none d-sm-block col-sm-3 date-time-title" style="text-align: center; margin: auto;">
+          <time>{{ .Date.Format "02 Jan 2006" }}</time>
+        </div>
+        <div class="col-sm-9 date-time-title post">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#{{$post_project}}" aria-expanded="false"
+            aria-controls="{{$post_project}}">
+            <h3>
+              <i class="collapse-icon fa fa-hourglass-end pull-left"></i> 
+              &nbsp {{.Title}}
+            </h3>
+          </button>
+          <div class="collapse card" id="{{$post_project}}" style="font-family: 'Ubuntu', sans-serif; font-size: 1rem;">
+            <div class="description">
+              <p>{{ .Summary }}</p>
+              <div class="text-center">
+                <a href="{{ .RelPermalink }}" class="btn btn-primary text-center">
+                  <i class="fas fa-book-open"></i> &nbsp READ
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}

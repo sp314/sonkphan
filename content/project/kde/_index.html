@@ -1,0 +1,203 @@
+---
+title: A Tutorial on Kernel Density Estimation
+author: ["Son Phan", "Zhen Tan"]
+date: '2019-04-19'
+categories: ["R"]
+summary: "A primer on non-parametric statistics in the form of kernel density estimation. Made in collaboration with Zhen Tan"
+image:
+  caption: ''
+  focal_point: ''
+bibliography: kde.bib
+---
+
+
+
+<script src="~/Desktop/Project/sonphan-site/assets/js/custom.js"></script>
+<style> p {line-height: 2em;} </style>
+<div class="figure">
+<img src="/post/kde/3dKDE.png" />
+
+</div>
+<div id="introduction" class="section level2">
+<h2>1. Introduction</h2>
+<p>Nonparametric statistics is a field that has been rapidly developing over the last decade. Its development has been aided by the various benefits it has relative to classical statistical techniques:</p>
+<ul>
+<li>We can relax assumptions on the probability distribution of the data. Most notably, the normality.</li>
+<li>There are cases in which classical procedures are neither applicable nor interpretable but a nonparametric one is.</li>
+<li>Modern computing has empowered many of these computationally expensive techniques.</li>
+</ul>
+<p>So far, when approaching statistics problems, we’ve assumed the distribution of data. However, we rarely ever understand the data enough to confidently assume a distribution. We will cover Kernel Density Estimation (KDE), a non-parametric estimation technique for any distribution <strong>f(x)</strong>. We will start with an explanation and mathematical form of a kernel density estimator, go over its properties, and touch on the burgeoning field of <em>bandwidth selection</em>.</p>
+</div>
+<div id="history" class="section level2">
+<h2>2. History</h2>
+<p>The concept of KDE was created by <span class="citation">Parzen (1962)</span> and <span class="citation">Rosenblatt (1956)</span> in their independent works, so it is also called Parzen-Rosenblatt window method in other fields such as signal processing and econometrics.</p>
+</div>
+<div id="some-intuition" class="section level2">
+<h2>3. Some Intuition</h2>
+<div id="the-histogram" class="section level3">
+<h3>The Histogram</h3>
+<p>Non-parametric density estimation may sound very alien but in fact it’s so commonplace that we’ve already seen it countless times! In high school, and even earlier, we’ve come across the <span class="math inline">\(\textbf{histogram}\)</span>. Turns out, they are non-parametric density estimators.</p>
+<p>We split our data into into <span class="math inline">\(K\)</span> equally sized bins/intervals with boundaries <span class="math inline">\(a_0, a_1, \ldots, a_{K}\)</span> and estimate the density in bin i as the proportion of observations that fall within <span class="math inline">\((a_{i-1}, a_{i}]\)</span>. Let <span class="math inline">\(n_i\)</span> be the number of observations within interval <span class="math inline">\((a_{i-1}, a_{i}]\)</span> and <span class="math inline">\(K\)</span> be the number of bins, for a histogram from distribution <span class="math inline">\(X\)</span> with sample size <span class="math inline">\(N\)</span>:</p>
+<span class="math display">\[\begin{equation}
+  \hat{f}(s) = \displaystyle \frac{1}{N}\sum_{i = 0}^{K-1}\frac{n_i}{a_i - a_{i - 1}}I_{(a_{i - 1}, a_i]}(s)
+\end{equation}\]</span>
+<p>However, there are problems with this. First, histograms tend to be blocky and sensitive to bins chosen.</p>
+<pre class="r"><code>some_data &lt;- rchisq(n = 100, df = 5)
+hist_bins &lt;- function(data, bins) {
+  ggplot(mapping = aes(x = data, y=..density..)) +
+  geom_histogram(bins = bins, fill = &quot;darkorchid4&quot;) + 
+  ggtitle(sprintf(fmt = &quot;%i bins&quot;, bins))
+}
+
+grid.arrange(hist_bins(some_data, 10), 
+             hist_bins(some_data, 20), 
+             hist_bins(some_data, 40), 
+             hist_bins(some_data, 80), nrow=2)</code></pre>
+<p><img src="/project/kde/_index_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Also, histograms are inherently local; I can have an observation <span class="math inline">\(x = 4.99999\)</span> not counted in interval <span class="math inline">\([5,6]\)</span>.</p>
+</div>
+<div id="kernel-density-estimation" class="section level3">
+<h3>Kernel Density Estimation</h3>
+<p>A kernel density estimate, <span class="math inline">\(\hat{f}_N(s)\)</span>, looks at some some point <span class="math inline">\(s\)</span> and the window <span class="math inline">\([s - h/2, s + h/2]\)</span>, where <span class="math inline">\(h\)</span> is chosen bandwith, and counts the observations in the window.</p>
+<span class="math display">\[\begin{align}
+  \hat{f}_N(s) &amp;=
+  \frac{1}{N}\displaystyle \sum_{i = 1}^{N} \frac{1}{h}I_{[s - h/2, s + h/2]}(X_i) =
+  \frac{1}{Nh} \sum_{i = 1}^{N}I_{[-h/2, h/2]}(X_i - s) \nonumber \\
+  &amp;=
+  \frac{1}{Nh} \sum_{i = 1}^{N}I_{[-1/2, 1/2]}\left(\frac{X_i - s}{h}\right)
+\end{align}\]</span>
+<p>We transform the initial equation with <span class="math inline">\(X_i\)</span> into a “distance” of surrounding X_i away from our point of interest s weighted by bandwidth, <span class="math inline">\(\frac{X_i - s}{h}\)</span>. Thus, instead of fixed bins, we have a moving window and can weigh <span class="math inline">\(x = 4.99999\)</span> accurately. However the roughness remains due to weighing each point in the window equally. You can think of a kernel function as a weighting function. Now, instead of weighing all distances from <span class="math inline">\(s\)</span> the same, we can apply a smooth kernel function such as a Gaussian (normal) function which will weight smaller distances more and larger distances less towards the density at <span class="math inline">\(s\)</span>.</p>
+<span class="math display">\[\begin{equation}
+  \hat{f}_N(x) = \frac{1}{Nh} \sum_{i = 1}^{N} K\left(\frac{x - X_i}{h}\right)
+\end{equation}\]</span>
+<p>Above, <span class="math inline">\(K\)</span> is our kernel/weighting function. The gaussian kernel function is very apparent in this low bandwidth (<span class="math inline">\(h=0.3\)</span>) computation below. We look at a <span class="math inline">\(N = 100\)</span> sample from Binom<span class="math inline">\((100, 0.5)\)</span>.</p>
+<pre class="r"><code>binom_data &lt;- rbinom(n = 10000, size = 20, prob = 0.5)
+ggplot(mapping = aes(x = binom_data)) +
+  geom_histogram(mapping = aes(y = ..density..), bins = 10, fill = &quot;darkorchid4&quot;) + 
+  geom_density(kernel = &quot;gaussian&quot;, bw = 0.3, color = &quot;#d2bf55&quot;, size = 1)</code></pre>
+<p><img src="/project/kde/_index_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="theory-and-properties" class="section level2">
+<h2>4. Theory and Properties</h2>
+<p>To allow for our analysis of KDE properties, we will outline a few rules about the Kernel and underlying density function.</p>
+<ol style="list-style-type: decimal">
+<li>Kernel function <span class="math inline">\(K\)</span>: is symmetric about 0, <span class="math inline">\(\int_{\Omega_X} K dx = 1\)</span>, and <span class="math inline">\(\lim_{x\to-\infty} K(x)= \lim_{x\to\infty} K(x) = 0\)</span></li>
+<li><span class="math inline">\(\int xK(x)dx &lt; \infty\)</span> and <span class="math inline">\(\int |x|(K(x))^2dx &lt; \infty\)</span></li>
+<li>PDF <span class="math inline">\(f\)</span>: <span class="math inline">\(\mathbb{R} \rightarrow \mathbb{R}\)</span> is Lipschitz Continuous, <span class="math inline">\(\exists M\in\mathbb{R}, |f(x) - f(y)| \leq M|x - y|, \forall x, y \in \mathbb{R}\)</span></li>
+</ol>
+<p>Applications of assumptions will be notated in brackets (i.e: [1]). Proof is adapted from <span class="citation">Wasserman (2006)</span> and simplified.</p>
+<div id="bias" class="section level3">
+<h3>Bias</h3>
+<p>As with most estimators, we want to account for bias. For <span class="math inline">\({X_1, X_2, \ldots, X_N} \overset{iid}{\sim} f\)</span>, the expected value of the kernel density estimate at <span class="math inline">\(s\)</span>: <span class="math display">\[
+    \mathbf{E}[\hat{f}_N(s)] = \mathbf{E}\left[\frac{1}{Nh} \displaystyle \sum_{i = 1}^{N} K \left( \frac{X_i - s}{h}\right) \right] = \frac{1}{h}\mathbf{E}\left[K \left( \frac{X - s}{h}\right) \right] = \frac{1}{h} \int K\left( \frac{x - s}{h}\right) f(x) dx
+  \]</span> We set <span class="math inline">\(u = \frac{x - s}{h}\)</span>, substitute, and apply a <span class="math inline">\(2^{nd}\)</span> order Taylor series expansion for <span class="math inline">\(f(hu + s)\)</span> about <span class="math inline">\(h = 0\)</span>:</p>
+<span class="math display">\[\begin{align*}
+    \mathbf{E}[\hat{f}_N(s)]
+    &amp;=
+    \frac{1}{h} \int K\left(u\right) f(hu + s) h du = \int K\left(u\right) f(hu + s) du \\
+    f(hu + s)
+    &amp;=
+    f(s) + \frac{f&#39;(s)}{1!}(u)(h-0) + \frac{f&#39;&#39;(s)}{2!}(u^2)(h-0)^2 + o(h^2) \\
+    &amp;= f(s) + huf&#39;(s) + \frac{h^2u^2}{2}f&#39;&#39;(s) + o(h^2)
+  \end{align*}\]</span>
+<p><span class="math inline">\(o(h^2)\)</span> is some function that as <span class="math inline">\(h \rightarrow 0\)</span>, <span class="math inline">\(o(h^2) \rightarrow 0\)</span> is negligible compared to <span class="math inline">\(h^2\)</span>. Plugging in our Taylor approximation for <span class="math inline">\(f(hu + s)\)</span>:</p>
+<span class="math display">\[\begin{align*}
+    \mathbf{E}[\hat{f}_N(s)]
+    &amp;=
+    \int K(u) \left[f(s) + huf&#39;(s) + \frac{h^2u^2}{2}f&#39;&#39;(s) + o(h^2)\right] du \\
+    &amp;=
+    f(s)\underbrace{\int K(u) du}_\text{[1], = 1} + hf&#39;(s)\underbrace{\int uK(u) du}_\text{[1], = 0} +  \frac{h^2}{2}f&#39;&#39;(s)\int u^2 K(u)du  + o(h^2) \\
+    &amp;=
+    f(s) + \frac{h^2}{2}f&#39;&#39;(s)\int u^2 K(u)du + o(h^2),  \quad \text{Thus...} \\
+    \textbf{Bias}(\hat{f}_N(s)) &amp;= E[\hat{f}_N(s)] - f(s) = \frac{h^2}{2}f&#39;&#39;(s)\underbrace{\int u^2 K(u)du}_\text{constant} + \underbrace{o(h^2)}_\text{bounded} \\
+    &amp;= \frac{t \cdot h^2}{2}f&#39;&#39;(s) + o(h^2), \quad \boxed{t = \int u^2 K(u)du}
+  \end{align*}\]</span>
+<p>From this we can see that the lower bandwidth <span class="math inline">\(h\)</span> we choose, the less bias we get. We also get the inisght that bias is highest at points <span class="math inline">\(s\)</span> where the curvature is very high, such as at a sharp peak. This is pretty apparent when we think of high KDE tries to smooth around these rough edges in the data.</p>
+</div>
+<div id="variance" class="section level3">
+<h3>Variance</h3>
+<p>Similarly, we find the upper bound for variance of estimated density, <span class="math inline">\(\hat{f}_N\)</span> at some point <span class="math inline">\(s\)</span>:</p>
+<span class="math display">\[\begin{align*}
+    \mathbf{Var}(\hat{f}_N(s))
+    &amp;=
+    \mathbf{Var} \left(\frac{1}{Nh} \displaystyle \sum_{i = 1}^{N} K \left(\frac{X_i - s}{h}\right)\right) \\
+    &amp;= \frac{1}{Nh^2} \left(\mathbf{E}\left[ K^2 \left( \frac{X - s}{h}\right) \right] - \mathbf{E}\left[ K \left( \frac{X - s}{h}\right)\right]^2\right), \; K \text{ is symmetric about } s \text{ [1]}\\
+    &amp;\leq
+    \frac{1}{Nh^2} \mathbf{E}\left[ K^2 \left( \frac{X - s}{h}\right) \right] \\
+    &amp;=
+    \frac{1}{Nh^2} \int K^2 \left( \frac{x - s}{h}\right)f(x) dx
+  \end{align*}\]</span>
+<p>We now substitute <span class="math inline">\(u = \frac{x - s}{h}\)</span> and approximate <span class="math inline">\(f(hu + s)\)</span> via <span class="math inline">\(1^{st}\)</span> order Taylor series expansion about <span class="math inline">\(h = 0\)</span>:</p>
+<span class="math display">\[\begin{align*}
+    \mathbf{Var}(\hat{f}_N(s))
+    &amp;\leq
+    \frac{1}{Nh^2} \int K^2(u)f(hu + s)hdu \\
+    &amp;=
+    \frac{1}{Nh} \int K^2(u)f(hu + s)du \\
+    &amp;=
+    \frac{1}{Nh} \int K^2(u)[f(s) + huf&#39;(s) + o(h)]du  \\
+    &amp;=
+    \frac{1}{Nh} \bigg(f(s)\int K^2(u) du + hf&#39;(s)\underbrace{\int uK^2(u) du}_\text{[1], = 0} + o(h)\bigg) \\
+    \mathbf{Var}(\hat{f}_N(s)) &amp;\leq \frac{f(s)}{Nh}\underbrace{\int K^2(u) du}_\text{constant} + \underbrace{o\bigg(\frac{1}{Nh}\bigg)}_\text{bounded} \\
+    &amp;=
+    \frac{z}{Nh}f(s) + o\bigg(\frac{1}{Nh}\bigg), \quad \boxed{z = \int K^2(u) du}
+  \end{align*}\]</span>
+<p>Because <span class="math inline">\(\frac{1}{Nh}\)</span> is the other function of <span class="math inline">\(h\)</span> in this expression, we say that as <span class="math inline">\(h \rightarrow 0\)</span> and <span class="math inline">\(N \rightarrow \infty\)</span>, <span class="math inline">\(o\left(\frac{1}{Nh}\right)\)</span> is some function that is negligible compared to <span class="math inline">\(\frac{1}{Nh}\)</span>. We observe that the variance of our kernel density estimate <span class="math inline">\(\mathrm{Var}(\hat{f}_N(s))\)</span> is high at points of high density in the true distribution, <span class="math inline">\(f(s)\)</span>. We also see that increasing either sample size or bandwidth decreases this upper bound.</p>
+</div>
+<div id="bringing-it-together-mse" class="section level3">
+<h3>Bringing it Together: MSE</h3>
+<p>Knowing both bias and variance of KDE predictors, it’s natural to look towards computing the Mean Squared Error (MSE).</p>
+<span class="math display">\[\begin{align*}
+    \textbf{MSE}(\hat{f}_N(s)) &amp;=
+    \textbf{Bias}^2(\hat{f}_N(s)) + \textbf{Var}(\hat{f}_N(s)) \\
+    &amp;=
+    \left(\frac{th^2}{2}f&#39;&#39;(s) + o(h^2) \right)^2 +  \frac{z}{Nh}f(s) + o\left(\frac{1}{Nh}\right); \quad \boxed{t = \int u^2 K(u)du, \; z = \int K^2(u) du}   \\
+    &amp;=
+    \frac{t^2h^4}{4}\left[f&#39;&#39;(s)\right]^2 +  \frac{z}{Nh}f(s) + o(h^4) + o\left(\frac{1}{Nh}\right)
+  \end{align*}\]</span>
+<p>The Mean Squared Error can be treated as a risk function similar to what we saw in Bayesian predictors. <span class="math inline">\(\frac{t^2h^4}{4}\left[f&#39;&#39;(s)\right]^2 + \frac{z}{Nh}f(s)\)</span> is the <span class="math inline">\(\textbf{Asymptotic Mean Squared Error (AMSE)}\)</span>. With this it’s quite straightforward to optimize with respect to <span class="math inline">\(h\)</span>.</p>
+<span class="math display">\[\begin{align*}
+    \frac{\partial}{\partial h} \textbf{AMSE}(\hat{f}_N(s))
+    &amp;=
+    \frac{\partial}{\partial h}\left(\frac{t^2}{4}\left[f&#39;&#39;(s)\right]^2\right)\mathbf{h^4} +  \left(\frac{z}{N}f(s)\right)\mathbf{\frac{1}{h}} \\
+    &amp;=
+    \left(t^2\left[f&#39;&#39;(s)\right]^2\right)\mathbf{h^3} -  \left(\frac{z}{N}f(s)\right)\mathbf{\frac{1}{h^2}} \\
+    0 &amp;= \left(t^2\left[f&#39;&#39;(s)\right]^2\right)\mathbf{h^5} -  \left(\frac{z}{N}f(s)\right) \\
+    \mathbf{h_{opt}} &amp;= \left(\frac{zf(s)}{Nt^2\left[f&#39;&#39;(s)\right]^2}\right)^{\frac{1}{5}} = \boxed{C_1 N^{-\frac{1}{5}}}
+  \end{align*}\]</span>
+</div>
+</div>
+<div id="choosing-bandwidth" class="section level2">
+<h2>5. Choosing Bandwidth</h2>
+<iframe width="1300" height="600" scrolling="no" frameborder="no" src="https://sonphan.shinyapps.io/bandwidth/">
+</iframe>
+<p>Bandwidth is similar to bin width in histograms. Bandwidth determines how smooth the KDE curves can be. If the chosen bandwidth is very small, the curve will be high variance; this case is called undersmoothing. If the chosen bandwidth is too large, however, the curve will have high bias and we are oversmoothing the curve.</p>
+<p>Because an appropriate size of bandwidth yields optimal results of estimation, bandwidth selection is a very important topic. If we choose a correct bandwidth, we will be able to estimate the underlying distribution, which neither wiggles too much (with a very small bandwidth) nor loses its characteristics (with a very large bandwidth).</p>
+<p>Although there are many different bandwidth selection methods, the main idea of these methods is to minimize the asymptotic mean integrated square error (AMISE). You might’ve thought that we’ve already found the optimal <span class="math inline">\(h\)</span>, but previously we only found the <span class="math inline">\(h_{opt}\)</span> for a single point <span class="math inline">\(s\)</span>. To do this for the entire distribution we must optimize on the same AMSE just integral along all value of the distribution. We provide the tools below and leave this as a simple exercise for the reader:</p>
+<p><span class="math display">\[
+\textbf{MISE}(\hat{f}_N(s)) =
+\underbrace{\int \left(\frac{t^2h^4}{4}\left[f&#39;&#39;(s)\right]^2 +  \frac{z}{Nh}f(s) \right) dx}_{\textbf{AMISE}(\hat{f}_N(s))} + o\left(\frac{1}{Nh}\right)
+\]</span></p>
+<p>In the end, you should find <span class="math inline">\(h_{opt}\)</span> is dependent on the overall curvature of the underlying distribution <span class="math inline">\(\int \left[f&#39;&#39;(x)\right]^2 dx\)</span>. Despite the age of the KDE concept, many of the advances in KDE are within the last decade in the field of bandwidth selection. If you find a good way to estimate <span class="math inline">\(\textbf{AMISE}\)</span> or the overall curvature, <span class="math inline">\(\int \left[f&#39;&#39;(x)\right]^2 dx\)</span>, prepare to get published. See <span class="citation">Wang and Zambom (2019)</span> and <span class="citation">Goldenshluger, Lepski, and others (2011)</span>.</p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-goldenshluger2011bandwidth">
+<p>Goldenshluger, Alexander, Oleg Lepski, and others. 2011. “Bandwidth Selection in Kernel Density Estimation: Oracle Inequalities and Adaptive Minimax Optimality.” <em>The Annals of Statistics</em> 39 (3). Institute of Mathematical Statistics: 1608–32.</p>
+</div>
+<div id="ref-parzen1962estimation">
+<p>Parzen, Emanuel. 1962. “On Estimation of a Probability Density Function and Mode.” <em>The Annals of Mathematical Statistics</em> 33 (3). JSTOR: 1065–76.</p>
+</div>
+<div id="ref-rosenblatt1956remarks">
+<p>Rosenblatt, Murray. 1956. “Remarks on Some Nonparametric Estimates of a Density Function.” <em>The Annals of Mathematical Statistics</em>. JSTOR, 832–37.</p>
+</div>
+<div id="ref-wang2019subsampling">
+<p>Wang, Qing, and Adriano Z Zambom. 2019. “Subsampling-Extrapolation Bandwidth Selection in Bivariate Kernel Density Estimation.” <em>Journal of Statistical Computation and Simulation</em>. Taylor &amp; Francis, 1–20.</p>
+</div>
+<div id="ref-wasserman2006all">
+<p>Wasserman, Larry. 2006. <em>All of Nonparametric Statistics</em>. Springer Science &amp; Business Media.</p>
+</div>
+</div>
+</div>

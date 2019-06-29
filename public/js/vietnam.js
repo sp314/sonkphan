@@ -1,5 +1,5 @@
 vn_config = {
-  "density": 1.5,
+  "density": 1.6,
   "scale": 3,
   "careful": true,
   "smooth": true,
