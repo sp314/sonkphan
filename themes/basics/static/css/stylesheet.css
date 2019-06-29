@@ -130,3 +130,28 @@ pre {
 .avatar {
   padding-top: 45px;
 }
+
+.email {
+  color: #008351;
+}
+
+.linkedin {
+  color: #0077B5;
+}
+.github {
+  color: #24292E;
+}
+
+.twitter {
+  color: #38A1F3
+}
+
+.social {
+  opacity: 1;
+  transition: 0.3s;
+  margin: auto;
+}
+
+.social :hover {
+  opacity: 1
+}

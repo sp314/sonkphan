@@ -21,31 +21,23 @@ function draw(lines, svg) {
     const line = lines[i];
 
     drawLine(svg, line)
-    sleep(10)
   }
 };
 
 function drawLine(svg, line) {
-  if(line.pip || line.first) {
-    svg
-    .append('line')
-    .attr({
-      x1: line.x1,
-      y1: line.y1,
-      x2: line.x2,
-      y2: line.y2, 
-      stroke: line.stroke
-    });
-  }
-}
-
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
+  window.setTimeout(function() {
+    if(line.pip || line.first) {
+      svg
+      .append('line')
+      .attr({
+        x1: line.x1,
+        y1: line.y1,
+        x2: line.x2,
+        y2: line.y2, 
+        stroke: line.stroke
+      });
     }
-  }
+  })
 }
 
 function getDrawing(pieces, path, projection, config){

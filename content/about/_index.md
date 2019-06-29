@@ -9,7 +9,8 @@ My favorite projects fuse quantitative research, web development, and interactiv
 Here's <a href="/resume.pdf" target="_blank">my resume</a> if you're into that kind of stuff.
 
 #### Broad research interests:
-* Statistical Inference
+* Computational Statistical Inference
+* Interactive Data Visualization
 * Sports Statistics
 * Urban Economics
 
