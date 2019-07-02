@@ -4,7 +4,7 @@
   
   <url>
     <loc>/project/transit-bayes/</loc>
-    <lastmod>2019-04-18T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -23,44 +23,75 @@
   </url>
   
   <url>
-    <loc>/project/kde/</loc>
-    <lastmod>2019-04-19T00:00:00+00:00</lastmod>
+    <loc>/tags/bayes/</loc>
+    <lastmod>2019-04-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2019-04-19T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/r/</loc>
-    <lastmod>2019-04-19T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/bayes/</loc>
-    <lastmod>2019-04-18T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/spatial/</loc>
-    <lastmod>2019-04-18T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2019-04-18T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/transit/</loc>
-    <lastmod>2019-04-18T00:00:00+00:00</lastmod>
+    <lastmod>2019-04-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/project/kde/</loc>
+    <lastmod>2019-04-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publications/</loc>
+    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/publications/wang2019subsampling/</loc>
+    <lastmod>2019-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publications/goldenshluger2011bandwidth/</loc>
+    <lastmod>2011-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publications/wasserman2006all/</loc>
+    <lastmod>2006-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publications/parzen1962estimation/</loc>
+    <lastmod>1962-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publications/rosenblatt1956remarks/</loc>
+    <lastmod>1956-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>

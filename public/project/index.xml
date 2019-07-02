@@ -11,5 +11,23 @@
 	<atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Transit Bayes</title>
+      <link>/project/transit-bayes/</link>
+      <pubDate>Tue, 30 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/project/transit-bayes/</guid>
+      <description>A Bayesian spatial analysis of transit access and home valuation in Minneapolis, MN</description>
+    </item>
+    
+    <item>
+      <title>A Tutorial on Non-Parametric Kernel Density Estimation</title>
+      <link>/project/kde/</link>
+      <pubDate>Fri, 19 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/project/kde/</guid>
+      <description>A primer on non-parametric statistics in the form of kernel density estimation. Made in collaboration with Zhen Tan</description>
+    </item>
+    
   </channel>
 </rss>

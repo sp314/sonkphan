@@ -11,3 +11,5 @@ enableEmoji = "true"
     angledQuotes = false
     latexDashes = true
     extensions = ["backslashLineBreak"]
+
+ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "\\.bib$"]

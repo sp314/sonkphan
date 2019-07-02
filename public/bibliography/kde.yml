@@ -1,0 +1,72 @@
+---
+references:
+- id: wasserman2006all
+  type: book
+  author:
+  - family: Wasserman
+    given: Larry
+  issued:
+  - year: 2006
+  title: All of nonparametric statistics
+  publisher: Springer Science & Business Media
+
+- id: wang2019subsampling
+  type: article-journal
+  author:
+  - family: Wang
+    given: Qing
+  - family: Zambom
+    given: Adriano Z
+  issued:
+  - year: 2019
+  title: Subsampling-extrapolation bandwidth selection in bivariate kernel density
+    estimation
+  container-title: Journal of Statistical Computation and Simulation
+  publisher: Taylor & Francis
+  page: 1-20
+
+- id: goldenshluger2011bandwidth
+  type: article-journal
+  author:
+  - family: Goldenshluger
+    given: Alexander
+  - family: Lepski
+    given: Oleg
+  - literal: others
+  issued:
+  - year: 2011
+  title: 'Bandwidth selection in kernel density estimation: Oracle inequalities and
+    adaptive minimax optimality'
+  title-short: Bandwidth selection in kernel density estimation
+  container-title: The Annals of Statistics
+  publisher: Institute of Mathematical Statistics
+  page: 1608-1632
+  volume: '39'
+  issue: '3'
+
+- id: parzen1962estimation
+  type: article-journal
+  author:
+  - family: Parzen
+    given: Emanuel
+  issued:
+  - year: 1962
+  title: On estimation of a probability density function and mode
+  container-title: The annals of mathematical statistics
+  publisher: JSTOR
+  page: 1065-1076
+  volume: '33'
+  issue: '3'
+
+- id: rosenblatt1956remarks
+  type: article-journal
+  author:
+  - family: Rosenblatt
+    given: Murray
+  issued:
+  - year: 1956
+  title: Remarks on some nonparametric estimates of a density function
+  container-title: The Annals of Mathematical Statistics
+  publisher: JSTOR
+  page: 832-837
+...

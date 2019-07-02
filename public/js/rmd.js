@@ -1,34 +1,22 @@
-$(document).ready(function() {
-  $plots = $('img.plot');
-  $chunks = $('pre').has('code');
-  $chunks = $chunks.filter(function(idx) {
-    return $(this).children('code').outerHeight(false) > 2*parseInt($(this).css('line-height'));
-  });
-
-  $chunks.each(function () {
-    if($(this).hasClass('r')) {
-      $(this).append("<div class=\"showopt\">Show Source</div><br style=\"line-height:22px;\"/>");
-    } else {
-      $(this).append("<div class=\"showopt\">Show Output</div><br style=\"line-height:22px;\"/>");
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' &&
+        code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+        text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+        code.textContent = text;
+      }
+      if (/^\\\((.|\s)+\\\)$/.test(text) ||
+          /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$(.|\s)+\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
     }
-  });
-
-  $plots.each(function () {
-    $(this).wrap('<pre class=\"plot\"></pre>');
-    $(this).parent('pre.plot').prepend("<div class=\"showopt\">Show Plot</div><br style=\"line-height:22px;\"/>");
-  });
-
-  // hide all chunks when document is loaded
-  $chunks.children('code').toggle();
-  $('pre.plot').children('img').toggle();
-  // function to toggle the visibility
-  $('.showopt').click(function() {
-    var label = $(this).html();
-    if (label.indexOf("Show") >= 0) {
-      $(this).html(label.replace("Show", "Hide"));
-    } else {
-      $(this).html(label.replace("Hide", "Show"));
-    }
-    $(this).siblings('code, img').slideToggle('fast', 'swing');
-  });
-});
+    i++;
+  }
+})();
