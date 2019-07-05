@@ -5,8 +5,8 @@ categories: ["R"]
 summary: "A Bayesian spatial analysis of transit access and home valuation in Minneapolis, MN"
 date: '2019-04-30'
 tags: ["Transit", "Bayes", "Spatial"]
-weight: 10
 bibliography: transit-bayes.bib
+code_folding: true
 ---
 
 
@@ -64,8 +64,6 @@ bibliography: transit-bayes.bib
 <p>The dataset’s 6 house SHORT_DESC or classifications in order are: Condominium, Double Bungalow, Residential, Residential Lake Shore, Townhouse, and Triplex. Because of the relative sparsity of data in the Residential Lake Shore, Townhouse, and Triplex classes, they are omitted from the analysis.</p>
 <p>Looking at homes in Minneapolis, I want to find the transit access around a home. This is done by making a 500 m circle/buffer around each home representative of walking distance and count the number of transit stops within the buffer. It’s expected that having transit stops in the area will add to the valuation of the house.</p>
 <pre class="r"><code>stop_routes &lt;- left_join(x = stops, y = as.data.frame(routes) %&gt;% select(route_d, mn_hdwy, st_dv_h, stp_cnt))
-## Warning: Column `route_d` joining factors with different levels, coercing
-## to character vector
 
 house_buffer &lt;- st_buffer(house_sale_sf, 500) %&gt;%
   select(one_of(&quot;address_clean&quot;, &quot;SALE_DATE&quot;, &quot;SALE_PRICE&quot;, &quot;SHORT_DESC&quot;))
@@ -105,8 +103,7 @@ log_stop_dens &lt;- ggplot(data = house_stop) +
 
 grid.arrange(price_dens, log_price_dens, stop_dens, log_stop_dens, ncol=2)</code></pre>
 <p><img src="/project/transit-bayes_files/figure-html/transform_reg-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>
-ggplot(data = house_stop %&gt;% filter(log(SALE_PRICE) &gt; 10), (mapping = aes(x = log(n_stops), y = log(SALE_PRICE)))) +
+<pre class="r"><code>ggplot(data = house_stop %&gt;% filter(log(SALE_PRICE) &gt; 10), (mapping = aes(x = log(n_stops), y = log(SALE_PRICE)))) +
   geom_point(color = &quot;darkorchid4&quot;)</code></pre>
 <p><img src="/project/transit-bayes_files/figure-html/transform_reg-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>I begin by estimating a Bayesian normal-normal model for the specification below. For house <span class="math inline">\(i\)</span>, let <span class="math inline">\(Y_i\)</span> be the valuation, <span class="math inline">\(S_i\)</span> be the number of stops within 500 meters, and <span class="math inline">\(T_{ij}\)</span> be a binary categorical variable for the type <span class="math inline">\(j\)</span> of the house. A log specification is put on the price and number of stops to normalize the variables.</p>

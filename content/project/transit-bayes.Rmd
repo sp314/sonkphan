@@ -5,8 +5,8 @@ categories: ["R"]
 summary: "A Bayesian spatial analysis of transit access and home valuation in Minneapolis, MN"
 date: '2019-04-30'
 tags: ["Transit", "Bayes", "Spatial"]
-weight: 10
 bibliography: transit-bayes.bib
+code_folding: true
 ---
 
 > Transit is a key component of modern urban infrastructure. It contributes to the density and clustering that drive innovation and productivity - [@citylab_university]
@@ -70,7 +70,7 @@ The dataset's 6 house SHORT_DESC or classifications in order are: Condominium, D
 
 Looking at homes in Minneapolis, I want to find the transit access around a home. This is done by making a 500 m circle/buffer around each home representative of walking distance and count the number of transit stops within the buffer. It's expected that having transit stops in the area will add to the valuation of the house.
 
-```{r parse_house_stops, message=FALSE}
+```{r parse_house_stops, message=FALSE, warning=FALSE}
 stop_routes <- left_join(x = stops, y = as.data.frame(routes) %>% select(route_d, mn_hdwy, st_dv_h, stp_cnt))
 
 house_buffer <- st_buffer(house_sale_sf, 500) %>%
@@ -111,7 +111,6 @@ log_stop_dens <- ggplot(data = house_stop) +
   geom_density(mapping = aes(x = log(n_stops)), color = "darkorchid4")
 
 grid.arrange(price_dens, log_price_dens, stop_dens, log_stop_dens, ncol=2)
-
 ggplot(data = house_stop %>% filter(log(SALE_PRICE) > 10), (mapping = aes(x = log(n_stops), y = log(SALE_PRICE)))) +
   geom_point(color = "darkorchid4")
 ```

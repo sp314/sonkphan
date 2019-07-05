@@ -7,7 +7,7 @@ body {
   font-family: 'Ubuntu', sans-serif;
   margin: auto;
   max-width: 70rem;
-  background-color: rgb(251, 251, 255);
+  background-color: #fff;
 }
 
 .img-fluid {
@@ -37,6 +37,10 @@ body {
   text-decoration: none;
 }
 
+.description .btn {
+  background-color: #743d9a;
+  color: #fbfbff;
+}
 .description .btn:hover {
   text-decoration: none;
 }
@@ -173,3 +177,46 @@ blockquote:before {
 blockquote p {
   display: inline;
 }
+
+.code-folding-btn { 
+  margin-bottom: 4px; 
+  background-color: #743d9a;
+  color: #fbfbff;
+}
+
+.col-md-12 {
+  margin: 0 0 0 auto;
+}
+
+body a {
+  color: #743d9a;
+}
+
+table {
+  border-spacing: 0;
+  width: 90%;
+  margin-bottom: 3rem;
+}
+
+td,
+th {
+  border-bottom: 0.1rem dashed #e1e1e1;
+  padding: 0.8rem 1rem;
+  text-align: left;
+}
+
+td:first-child,
+
+th:first-child {
+  padding-left: 0;
+}
+
+td:last-child,
+th:last-child {
+  padding-right: 0;
+}
+
+thead {
+  font-size: 1.5rem;
+}
+
