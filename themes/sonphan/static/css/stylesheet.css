@@ -220,3 +220,35 @@ thead {
   font-size: 1.5rem;
 }
 
+pre.prettyprint { 
+  background-color: #013241 !important;
+  margin: 10px 0px;
+  padding: 5px 0px 10px 3px;
+}
+
+ol.linenums li:hover {
+  background-color: #004257;
+}
+
+li {
+  list-style-type: decimal !important;
+  font-size: 12px;
+}
+
+pre code {
+  margin-left: 5px;
+  font-family: 'Menlo', monospace;
+  font-size: 13px;
+}
+
+pre .str {
+  color: #fcf94e;
+}
+
+pre .kwd {
+  color: rgb(241, 139, 255);
+}
+
+pre .lit {
+  color: #ff8888;
+}
