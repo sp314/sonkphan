@@ -230,7 +230,7 @@ ol.linenums li:hover {
   background-color: #004257;
 }
 
-li {
+ol.linenums li {
   list-style-type: decimal !important;
   font-size: 12px;
 }
