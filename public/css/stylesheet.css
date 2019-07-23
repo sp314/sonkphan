@@ -10,10 +10,14 @@ html {
 }
 
 body {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'San Francisco' sans-serif;
   margin: auto;
   max-width: 70rem;
   background-color: #fff;
+}
+
+body ::selection{
+  color: rgb(126, 27, 184);
 }
 
 .img-fluid {
@@ -63,7 +67,6 @@ body {
 }
 
 .date-time-title {
-  font-family: 'Ubuntu Mono', monospace;
   font-size: 1.2rem;
 }
 
@@ -109,7 +112,7 @@ h6 {
 }
 
 code {
-  font-family: 'Ubuntu Mono', monospace;
+  font-family: 'San Francisco', monospace;
   white-space: pre;
   overflow-x: auto;
 }
@@ -186,7 +189,7 @@ blockquote p {
 
 .code-folding-btn { 
   margin-bottom: 4px; 
-  background-color: #743d9a;
+  color: rgb(126, 27, 184);
   color: #fbfbff;
 }
 
@@ -195,7 +198,7 @@ blockquote p {
 }
 
 body a {
-  color: #743d9a;
+  color: rgb(126, 27, 184);
 }
 
 table {
