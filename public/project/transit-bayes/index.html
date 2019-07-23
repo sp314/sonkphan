@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono&display=swap" rel="stylesheet">
   <title>Son Phan / Transit Bayes</title>
   <script src="https://kit.fontawesome.com/15a8dd2038.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=r&amp;skin=desert"></script>
   <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 
@@ -93,7 +94,7 @@
 </table>
 <p>The dataset’s 6 house SHORT_DESC or classifications in order are: Condominium, Double Bungalow, Residential, Residential Lake Shore, Townhouse, and Triplex. Because of the relative sparsity of data in the Residential Lake Shore, Townhouse, and Triplex classes, they are omitted from the analysis.</p>
 <p>Looking at homes in Minneapolis, I want to find the transit access around a home. This is done by making a 500 m circle/buffer around each home representative of walking distance and count the number of transit stops within the buffer. It’s expected that having transit stops in the area will add to the valuation of the house.</p>
-<pre class="r"><code>stop_routes &lt;- left_join(x = stops, y = as.data.frame(routes) %&gt;% select(route_d, mn_hdwy, st_dv_h, stp_cnt))
+<pre class="r prettyprint rounded lang-r linenums"><code>stop_routes &lt;- left_join(x = stops, y = as.data.frame(routes) %&gt;% select(route_d, mn_hdwy, st_dv_h, stp_cnt))
 
 house_buffer &lt;- st_buffer(house_sale_sf, 500) %&gt;%
   select(one_of(&quot;address_clean&quot;, &quot;SALE_DATE&quot;, &quot;SALE_PRICE&quot;, &quot;SHORT_DESC&quot;))
@@ -122,7 +123,7 @@ ggplot() +
 <div id="a-naive-model-for-housing-value" class="section level1">
 <h1>2. A Naive Model for Housing Value</h1>
 <p>Looking at the distribution of housing prices, we see a heavy right skew and apply a log transformation to normalize the distribution. Additionally looking at number of stops near a home, we see a more extreme right skew and perform the same log transformation. Plotting these logged variables shows a relatively normal distribution of logged prices conditioned on each logged n_stops.</p>
-<pre class="r"><code>price_dens &lt;- ggplot(data = house_stop) +
+<pre class="r prettyprint rounded lang-r linenums"><code>price_dens &lt;- ggplot(data = house_stop) +
   geom_density(mapping = aes(x = SALE_PRICE), color = &quot;darkorchid4&quot;)
 log_price_dens &lt;- ggplot(data = house_stop) +
   geom_density(mapping = aes(x = log(SALE_PRICE)), color = &quot;darkorchid4&quot;)
@@ -133,7 +134,7 @@ log_stop_dens &lt;- ggplot(data = house_stop) +
 
 grid.arrange(price_dens, log_price_dens, stop_dens, log_stop_dens, ncol=2)</code></pre>
 <p><img src="/project/transit-bayes_files/figure-html/transform_reg-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>ggplot(data = house_stop %&gt;% filter(log(SALE_PRICE) &gt; 10), (mapping = aes(x = log(n_stops), y = log(SALE_PRICE)))) +
+<pre class="r prettyprint rounded lang-r linenums"><code>ggplot(data = house_stop %&gt;% filter(log(SALE_PRICE) &gt; 10), (mapping = aes(x = log(n_stops), y = log(SALE_PRICE)))) +
   geom_point(color = &quot;darkorchid4&quot;)</code></pre>
 <p><img src="/project/transit-bayes_files/figure-html/transform_reg-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>I begin by estimating a Bayesian normal-normal model for the specification below. For house <span class="math inline">\(i\)</span>, let <span class="math inline">\(Y_i\)</span> be the valuation, <span class="math inline">\(S_i\)</span> be the number of stops within 500 meters, and <span class="math inline">\(T_{ij}\)</span> be a binary categorical variable for the type <span class="math inline">\(j\)</span> of the house. A log specification is put on the price and number of stops to normalize the variables.</p>
@@ -144,7 +145,7 @@ grid.arrange(price_dens, log_price_dens, stop_dens, log_stop_dens, ncol=2)</code
 T_{j} &amp;\sim N(0\ ,\  10^6) \\
 \tau &amp;\sim Gamma(100, 3000)
 \end{align*}\]</span></p>
-<pre class="r"><code>#Collect Model Prior Parameters and Data
+<pre class="r prettyprint rounded lang-r linenums"><code>#Collect Model Prior Parameters and Data
 data_th1 &lt;- list(price = log(house_stop$SALE_PRICE), stops = log(house_stop$n_stops), type = factor(house_stop$SHORT_DESC))
 
 model_th1 &lt;- 
@@ -218,7 +219,7 @@ summary(sim_th1)
 <div id="implementing-the-stop-characteristics" class="section level1">
 <h1>3. Implementing the Stop Characteristics</h1>
 <p>In this next section I want to iterate on the previous model towards a better specification incorporating more information from each stop. I also notice that among each group, the relationship between valuation and transit access varies.</p>
-<pre class="r"><code>departure_price &lt;-ggplot(data = house_stop %&gt;% filter(log(SALE_PRICE) &gt; 10), mapping = aes(x = log(n_departures), y = log(SALE_PRICE))) +
+<pre class="r prettyprint rounded lang-r linenums"><code>departure_price &lt;-ggplot(data = house_stop %&gt;% filter(log(SALE_PRICE) &gt; 10), mapping = aes(x = log(n_departures), y = log(SALE_PRICE))) +
   geom_point(color = &quot;darkorchid4&quot;) + 
   geom_smooth(method=&#39;lm&#39;, se = FALSE, color = &quot;#E0A504&quot;) +
   facet_wrap(facets = vars(SHORT_DESC))
@@ -240,7 +241,7 @@ b_{2j} | \beta_2, \tau_{2b} &amp;\sim N(\beta_2, \tau_{2b}) \\
 \beta_1, \beta_2 &amp;\sim N(50, 10^6) \\
 \tau_w, \tau_{0b}, \tau_{1b}, \tau_{2b} &amp;\sim Gamma(100, 3000)
 \end{align*}\]</span></p>
-<pre class="r"><code>#Collect Model Prior Parameters and Data
+<pre class="r prettyprint rounded lang-r linenums"><code>#Collect Model Prior Parameters and Data
 data_th2 &lt;- list(price = log(house_stop$SALE_PRICE), type = factor(house_stop$SHORT_DESC), departures = log(house_stop$n_departures), connectivity = log(house_stop$connectivity))
 
 model_th2 &lt;-
@@ -346,7 +347,7 @@ summary(sim_th2)
 <div id="predicting-house-price" class="section level1">
 <h1>4. Predicting House Price</h1>
 <p>To test out our model let’s try to predict a house’s price. Looking at some hypothetical house, we want to predict how much any condominium would cost if there’s around 3000 departures per week and around 600 stops its connected to. This is decently reasonable given the mean and median for departures and connectivity.</p>
-<pre class="r"><code>pred_chains_th2 &lt;- chains_th2 %&gt;%
+<pre class="r prettyprint rounded lang-r linenums"><code>pred_chains_th2 &lt;- chains_th2 %&gt;%
   mutate(
     predict_ln = rnorm(n = n(), mean = (b0.1. + b1.1. * log(3000) + b2.1. * log(500)), sd = sqrt(1/tauw)),
     predict = exp(predict_ln)
@@ -356,7 +357,7 @@ ggplot(data = pred_chains_th2) +
   geom_density(mapping = aes(x = predict_ln), color = &quot;darkorchid4&quot;) +
   geom_vline(mapping = aes(xintercept = mean(pred_chains_th2$predict_ln)), color = &quot;#E0A504&quot;)</code></pre>
 <p><img src="/project/transit-bayes_files/figure-html/mcmc2_plot-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>
+<pre class="r prettyprint rounded lang-r linenums"><code>
 mean(pred_chains_th2$predict_ln)
 ## [1] 12.34057
 exp(mean(pred_chains_th2$predict_ln))

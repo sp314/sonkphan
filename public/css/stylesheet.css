@@ -3,6 +3,12 @@ html {
   height: auto;
 }
 
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+
 body {
   font-family: 'Ubuntu', sans-serif;
   margin: auto;
@@ -182,7 +188,6 @@ blockquote p {
   margin-bottom: 4px; 
   background-color: #743d9a;
   color: #fbfbff;
-  width: 80%;
 }
 
 .col-md-12 {
@@ -191,4 +196,65 @@ blockquote p {
 
 body a {
   color: #743d9a;
+}
+
+table {
+  border-spacing: 0;
+  width: 90%;
+  margin-bottom: 3rem;
+}
+
+td,
+th {
+  border-bottom: 0.1rem dashed #e1e1e1;
+  padding: 0.8rem 1rem;
+  text-align: left;
+}
+
+td:first-child,
+
+th:first-child {
+  padding-left: 0;
+}
+
+td:last-child,
+th:last-child {
+  padding-right: 0;
+}
+
+thead {
+  font-size: 1.5rem;
+}
+
+pre.prettyprint { 
+  background-color: #013241 !important;
+  margin: 10px 0px;
+  padding: 5px 0px 10px 3px;
+}
+
+ol.linenums li:hover {
+  background-color: #004257;
+}
+
+ol.linenums li {
+  list-style-type: decimal !important;
+  font-size: 12px;
+}
+
+pre code {
+  margin-left: 5px;
+  font-family: 'Menlo', monospace;
+  font-size: 13px;
+}
+
+pre .str {
+  color: #fcf94e;
+}
+
+pre .kwd {
+  color: rgb(241, 139, 255);
+}
+
+pre .lit {
+  color: #ff8888;
 }
