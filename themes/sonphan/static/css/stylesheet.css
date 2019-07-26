@@ -170,7 +170,7 @@ code.has-jax {
 
 blockquote {
   background: #f9f9f9;
-  border-left: 10px solid #ccc;
+  border-left: 10px solid rgb(126, 27, 184);
   margin: 1.5em 10px;
   padding: 0.5em 10px;
   quotes: "\201C""\201D""\2018""\2019";
@@ -189,7 +189,7 @@ blockquote p {
 
 .code-folding-btn { 
   margin-bottom: 4px; 
-  color: rgb(126, 27, 184);
+  background-color: rgb(126, 27, 184);
   color: #fbfbff;
 }
 
