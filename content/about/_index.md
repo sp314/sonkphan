@@ -2,7 +2,7 @@
 title: "ABOUT"
 ---
 # Son Phan
-Hi! I'm currently a 3<sup>rd</sup> year student at Macalester College studying Applied Math/Statistics, Economics, and Japanese. As of May 20<sup>th</sup>, I'm working as a Data Science Intern in 3M's Finance Division. 
+Hi! I'm currently a 3<sup>rd</sup> year student at Macalester College studying Applied Math/Statistics, Economics, and Japanese. As of the beginning of this summer, I'm working as a Data Science Intern in 3M's Finance Division. Additionally, I'm working on research involving the volatility of game outcomes across sports.
 
 My favorite projects fuse quantitative research, web development, and interactive visualization to investigate and elegantly showcase data.
 
