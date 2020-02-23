@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on Site</title>
@@ -17,11 +17,11 @@
       <pubDate>Tue, 30 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>/project/transit-bayes/</guid>
-      <description>A Bayesian spatial analysis of transit access and home valuation in Minneapolis, MN</description>
+      <description>A Bayesian spatial analysis of the link between transit access and home valuation in Minneapolis, MN</description>
     </item>
     
     <item>
-      <title>A Tutorial on Non-Parametric Kernel Density Estimation</title>
+      <title>The Math Behind Kernel Density Estimation</title>
       <link>/project/kde/</link>
       <pubDate>Fri, 19 Apr 2019 00:00:00 +0000</pubDate>
       
