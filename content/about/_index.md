@@ -8,8 +8,7 @@ Here's <a href="/resume.pdf" target="_blank">my resume</a> if you're into that k
 
 #### Broad research interests:
 * High Dimensional Statistics
-* Bayesian Inference
-* Interactive Data Visualization
-* Urban Economics
+* Fair Machine Learning
+* Nonparametric Bayesian Inference
 
 Besides that, I enjoy dancing with <a href="https://www.youtube.com/channel/UC7g02Rf0LNpVL_Q__yuwjkg/videos" target="_blank">X-ertion</a>, listening to podcasts, reading, and playing video games with friends.

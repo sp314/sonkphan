@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Learning Fair Representations</title>
+      <link>/project/lfr/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/project/lfr/</guid>
+      <description>Given a dataset with a sensitive attribute (e.g gender, race) we look to obtain a representation of the data that has the same dimension as the original data, preserves as much of information in the original data as possible, and de-correlates the sensitive attribute</description>
+    </item>
+    
+    <item>
       <title>Transit Bayes</title>
       <link>/project/transit-bayes/</link>
       <pubDate>Tue, 30 Apr 2019 00:00:00 +0000</pubDate>
@@ -21,7 +30,7 @@
     </item>
     
     <item>
-      <title>The Math Behind Kernel Density Estimation</title>
+      <title>Kernel Density Estimation Tutorial</title>
       <link>/project/kde/</link>
       <pubDate>Fri, 19 Apr 2019 00:00:00 +0000</pubDate>
       

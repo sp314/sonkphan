@@ -1,12 +1,14 @@
 ---
-title: A Tutorial on Non-Parametric Kernel Density Estimation
-author: ["Son Phan", "Zhen Tan"]
+title: "Kernel Density Estimation Tutorial"
+author:
+- "Son Phan"
+- "Zhen Tan"
 date: '2019-04-19'
-categories: ["R"]
 summary: "A primer on non-parametric statistics in the form of kernel density estimation. Made in collaboration with Zhen Tan"
-
+output: html_document
 bibliography: kde.bib
-code_folding: true
+link-citations: yes
+code_folding: yes
 ---
 
 ```{r setup, include=FALSE}
